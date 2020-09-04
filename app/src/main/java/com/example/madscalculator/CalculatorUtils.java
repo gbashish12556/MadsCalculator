@@ -1,5 +1,7 @@
 package com.example.madscalculator;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
@@ -97,7 +99,9 @@ public class CalculatorUtils
         //to check if 2 consecutive operators are there...
         pattern = pattern.compile("[*-+\\/]{2}");
         matcher = pattern.matcher(input);
-        if (matcher.find())
+        Boolean matchFound = matcher.find();
+        Log.d("matchFound",matchFound.toString());
+        if (matchFound)
             return false;
 
         return true;
@@ -105,12 +109,16 @@ public class CalculatorUtils
     
 
     public Boolean validateLastCharacter(String string){
-        String last = String.valueOf(string.charAt(string.length()-1));
-        Pattern pattern = Pattern.compile("[*-+^\\/]{1}");
-        Matcher matcher = pattern.matcher(last);
-        if (matcher.find())
+        if(string.equals("")){
             return true;
-        return false;
+        }else {
+            String last = String.valueOf(string.charAt(string.length() - 1));
+            Pattern pattern = Pattern.compile("[*-+^\\/]{1}");
+            Matcher matcher = pattern.matcher(last);
+            if (matcher.find())
+                return true;
+            return false;
+        }
     }
     String pop(ArrayList<Character> al)// pop all operators until '(' reached and add them to temp
     {

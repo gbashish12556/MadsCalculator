@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import java.lang.Exception
 
 class CalculatorActivity : AppCompatActivity() {
     var advanceCalculator: CalculatorUtils? = null
@@ -41,19 +42,23 @@ class CalculatorActivity : AppCompatActivity() {
     }
 
     fun evaluateExpression(view: View?) {
-        resetHistoryIndex()
-        storeResult("=")
-        text = textArea!!.text.toString()
-        val postfixExpression = advanceCalculator!!.findPostfix(text)
-        if (postfixExpression == "Invalid expression") {
+        try {
+            resetHistoryIndex()
+            storeResult("=")
+            text = textArea!!.text.toString()
+            val postfixExpression = advanceCalculator!!.findPostfix(text)
+            if (postfixExpression == "Invalid expression") {
+                errorMessageText!!.visibility = View.VISIBLE
+                textArea!!.setText("")
+                return
+            }
+            val result = advanceCalculator!!.evaluatePostfix(postfixExpression)
+            storeResult(result.toString())
+            textArea!!.setText("" + result)
+        }catch (e:Exception){
             errorMessageText!!.visibility = View.VISIBLE
             textArea!!.setText("")
-            return
         }
-        Log.d("postfixExpression",postfixExpression)
-        val result = advanceCalculator!!.evaluatePostfix(postfixExpression)
-        storeResult(result.toString())
-        textArea!!.setText("" + result)
     }
 
     fun clearTextField(view: View?) {

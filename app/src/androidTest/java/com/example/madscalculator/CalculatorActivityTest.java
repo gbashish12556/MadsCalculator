@@ -50,4 +50,22 @@ public class CalculatorActivityTest {
         onView(withId(R.id.error_message)).check(matches(isDisplayed()));
     }
 
+
+    @Test
+    public void check_if_clear_button_clears_editText(){
+        onView(withId(R.id.edit_text)).perform(typeText("5+3/2+1"),closeSoftKeyboard());
+        onView(withId(R.id.equal_button)).perform(click());
+        onView(withText("CLR")).perform(click());
+        onView(withId(R.id.edit_text)).check(matches(withText("")));
+    }
+
+    @Test
+    public void check_if_ans_button_restores_last_ans(){
+        onView(withId(R.id.edit_text)).perform(typeText("1+3/2-1"),closeSoftKeyboard());
+        onView(withId(R.id.equal_button)).perform(click());
+        onView(withText("CLR")).perform(click());
+        onView(withText("ANS")).perform(click());
+        onView(withId(R.id.edit_text)).check(matches(withText("1.0")));
+    }
+    
 }
