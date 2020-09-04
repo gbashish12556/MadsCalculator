@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class CalculatorUtils
 {
     ArrayList<Character> operators;
-    private float lastAns = 0;
+    private float lastAns = (float) 0.0;
     public CalculatorUtils()
     {
         operators=new ArrayList<>();
