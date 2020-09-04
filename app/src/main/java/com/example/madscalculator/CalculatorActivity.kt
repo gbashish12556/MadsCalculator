@@ -1,6 +1,7 @@
 package com.example.madscalculator
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -75,10 +76,11 @@ class CalculatorActivity : AppCompatActivity() {
     }
 
     fun storeResult(string:String){
-        if(lastTenResult.size > 10){
-            lastTenResult.add(string)
+        if(lastTenResult.size >= 10){
+            lastTenResult.removeAt(0)
         }
         lastTenResult.add(string)
+        Log.d("lastTenResult",lastTenResult.toString())
     }
 
     fun showHistory(view: View?){
