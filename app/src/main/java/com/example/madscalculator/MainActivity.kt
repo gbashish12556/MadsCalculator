@@ -4,9 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.NonNull
+import androidx.annotation.VisibleForTesting
+import androidx.test.espresso.IdlingResource
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -17,16 +22,24 @@ class MainActivity : Activity() {
 
     var userNameEditText:EditText? = null
     var userPassEditText:EditText? = null
+    var errorText:TextView? = null
 
     var remoteUserName:String = ""
     var remotePassword:String = ""
+    private var mIdlingResource: RetrofitIdlingResource? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        getIdlingResource()
+        if(mIdlingResource != null) {
+            mIdlingResource!!.setIdleState(false)
+        }
+
         userNameEditText = findViewById(R.id.userName)
         userPassEditText = findViewById(R.id.userPassword)
+        errorText  = findViewById(R.id.error_message)
 
         findViewById<Button>(R.id.loginButton).setOnClickListener{
 
@@ -37,7 +50,7 @@ class MainActivity : Activity() {
                 var intent = Intent(this,CalculatorActivity::class.java)
                 startActivity(intent)
             }else{
-                Toast.makeText(this,"Invalid User Or Password",Toast.LENGTH_LONG).show();
+                errorText?.visibility = View.VISIBLE
             }
         }
     }
@@ -49,6 +62,7 @@ class MainActivity : Activity() {
         App.userNameNode.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 remoteUserName = (dataSnapshot.getValue() as String?)!!
+                mIdlingResource!!.setIdleState(true)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -67,5 +81,15 @@ class MainActivity : Activity() {
         })
 
     }
+
+    @VisibleForTesting
+    @NonNull
+    fun getIdlingResource(): IdlingResource {
+        if (mIdlingResource == null) {
+            mIdlingResource = RetrofitIdlingResource()
+        }
+        return mIdlingResource!!
+    }
+
 
 }
