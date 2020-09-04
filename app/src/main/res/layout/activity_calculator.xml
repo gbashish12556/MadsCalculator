@@ -1,196 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
+
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relative1"
-    android:padding="40dp"
-    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CalculatorActivity">
 
-    <EditText
-        android:id="@+id/edt1"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin">
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:textColor="@android:color/holo_red_dark"
+        android:text="Please enter valid expression"
+        android:textSize="20dp"
+        android:id="@+id/error_message"
+        android:gravity="center"
+        android:layout_height="50dp" />
 
-    <Button
-        android:id="@+id/button1"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@id/edt1"
-        android:layout_alignLeft="@id/edt1"
-        android:layout_below="@+id/edt1"
-        android:text="1" />
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp" >
 
-    <Button
-        android:id="@+id/button2"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button1"
-        android:layout_toRightOf="@+id/button1"
-        android:layout_toEndOf="@+id/button1"
-        android:text="2" />
 
-    <Button
-        android:id="@+id/button3"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button2"
-        android:layout_toRightOf="@+id/button2"
-        android:layout_toEndOf="@+id/button2"
-        android:text="3" />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/edit_text"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/button4"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
-        android:layout_toLeftOf="@+id/button2"
-        android:text="4" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/equal_button"
+            android:onClick="evaluateExpression"
+            android:text="=" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/button5"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button4"
-        android:layout_alignLeft="@+id/button2"
-        android:layout_alignStart="@+id/button2"
-        android:text="5" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/button6"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_alignStart="@+id/button3"
-        android:layout_below="@+id/button3"
-        android:text="6" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="getTextFromButton"
 
-    <Button
-        android:id="@+id/button7"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button4"
-        android:layout_toLeftOf="@+id/button2"
-        android:text="7" />
+            android:text="1" />
 
-    <Button
-        android:id="@+id/button8"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button5"
-        android:layout_alignStart="@+id/button5"
-        android:layout_alignLeft="@+id/button5"
-        android:layout_marginTop="2dp"
-        android:text="8" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="getTextFromButton"
 
-    <Button
-        android:id="@+id/button9"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button6"
-        android:layout_alignStart="@+id/button6"
-        android:layout_below="@+id/button6"
-        android:text="9" />
+            android:text="2" />
 
-    <Button
-        android:id="@+id/buttonadd"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/edt1"
-        android:layout_alignRight="@+id/edt1"
-        android:layout_alignTop="@+id/button3"
-        android:layout_marginLeft="50dp"
-        android:layout_marginStart="50dp"
-        android:layout_toRightOf="@+id/button3"
-        android:text="+" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="getTextFromButton"
+            android:text="3" />
 
-    <Button
-        android:id="@+id/buttonsub"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/buttonadd"
-        android:layout_alignLeft="@+id/buttonadd"
-        android:layout_alignRight="@+id/buttonadd"
-        android:layout_alignStart="@+id/buttonadd"
-        android:layout_below="@+id/buttonadd"
-        android:text="-" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="getTextFromButton"
+            android:text="+" />
 
-    <Button
-        android:id="@+id/buttonmul"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonsub"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignStart="@+id/buttonsub"
-        android:layout_below="@+id/buttonsub"
-        android:text="*" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/button10"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button7"
-        android:layout_toLeftOf="@+id/button2"
-        android:text="." />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/button0"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button8"
-        android:layout_alignStart="@+id/button8"
-        android:layout_below="@+id/button8"
-        android:text="0" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="getTextFromButton"
+            android:text="4" />
 
-    <Button
-        android:id="@+id/buttonC"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button9"
-        android:layout_alignStart="@+id/button9"
-        android:layout_below="@+id/button9"
-        android:text="C" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="getTextFromButton"
 
-    <Button
-        android:id="@+id/buttondiv"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/buttonmul"
-        android:layout_alignLeft="@+id/buttonmul"
-        android:layout_alignRight="@+id/buttonmul"
-        android:layout_alignStart="@+id/buttonmul"
-        android:layout_below="@+id/buttonmul"
-        android:text="/" />
+            android:text="5" />
 
-    <Button
-        android:id="@+id/buttoneql"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/buttondiv"
-        android:layout_alignLeft="@+id/button10"
-        android:layout_alignRight="@+id/buttondiv"
-        android:layout_alignStart="@+id/button10"
-        android:layout_below="@+id/button0"
-        android:layout_marginTop="37dp"
-        android:text="=" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="getTextFromButton"
+            android:text="6" />
 
-</RelativeLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="getTextFromButton"
+            android:text="-" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="getTextFromButton"
+            android:text="7" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="getTextFromButton"
+
+            android:text="8" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="getTextFromButton"
+            android:text="9" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="getTextFromButton"
+            android:text="*" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="getTextFromButton"
+            android:text="0" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="clearTextField"
+
+            android:text="CLR" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:text="ANS" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="getTextFromButton"
+            android:text="/" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:onClick="clearTextField"
+            android:text="HIS" />
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
