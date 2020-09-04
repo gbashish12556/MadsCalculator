@@ -95,7 +95,7 @@ public class CalculatorUtils
 
 
         //to check if 2 consecutive operators are there...
-        pattern = pattern.compile("[*-+^\\/]{2}");
+        pattern = pattern.compile("[*-+\\/]{2}");
         matcher = pattern.matcher(input);
         if (matcher.find())
             return false;

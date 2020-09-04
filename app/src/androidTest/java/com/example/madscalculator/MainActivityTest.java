@@ -5,6 +5,8 @@ import androidx.test.espresso.IdlingResource;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -63,7 +65,6 @@ public class MainActivityTest {
 
         Intents.init();
         onView(withId(R.id.equal_button)).check(matches(isDisplayed()));
-        Intents.release();
 
     }
 
@@ -82,6 +83,11 @@ public class MainActivityTest {
 
         onView(withId(R.id.error_message)).check(matches(isDisplayed()));
 
+    }
+
+    @After
+    public void tearDown(){
+        Intents.release();
     }
 
 }

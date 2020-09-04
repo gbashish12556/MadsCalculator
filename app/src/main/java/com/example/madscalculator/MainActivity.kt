@@ -41,18 +41,21 @@ class MainActivity : Activity() {
         userPassEditText = findViewById(R.id.userPassword)
         errorText  = findViewById(R.id.error_message)
 
-        findViewById<Button>(R.id.loginButton).setOnClickListener{
+        var intent = Intent(this,CalculatorActivity::class.java)
+        startActivity(intent)
 
-            var userName = userNameEditText?.text.toString()
-            var userPassword = userPassEditText?.text.toString()
-
-            if(userName.equals(remoteUserName) && userPassword.equals(remotePassword)){
-                var intent = Intent(this,CalculatorActivity::class.java)
-                startActivity(intent)
-            }else{
-                errorText?.visibility = View.VISIBLE
-            }
-        }
+//        findViewById<Button>(R.id.loginButton).setOnClickListener{
+//
+//            var userName = userNameEditText?.text.toString()
+//            var userPassword = userPassEditText?.text.toString()
+//
+//            if(userName.equals(remoteUserName) && userPassword.equals(remotePassword)){
+//                var intent = Intent(this,CalculatorActivity::class.java)
+//                startActivity(intent)
+//            }else{
+//                errorText?.visibility = View.VISIBLE
+//            }
+//        }
     }
 
 

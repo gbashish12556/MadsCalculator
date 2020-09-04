@@ -50,6 +50,7 @@ class CalculatorActivity : AppCompatActivity() {
             textArea!!.setText("")
             return
         }
+        Log.d("postfixExpression",postfixExpression)
         val result = advanceCalculator!!.evaluatePostfix(postfixExpression)
         storeResult(result.toString())
         textArea!!.setText("" + result)
@@ -94,7 +95,7 @@ class CalculatorActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         Log.d("lastTenResult",lastTenResult.toString())
-        lastTenResultRemote = (lastTenResult as List<String>).joinToString(",")
+        lastTenResultRemote = lastTenResult.joinToString(",")
         Log.d("lastTenResult",lastTenResultRemote.toString())
         App.lastTenResultNode.setValue(lastTenResultRemote)
     }
@@ -106,8 +107,9 @@ class CalculatorActivity : AppCompatActivity() {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 lastTenResultRemote = (dataSnapshot.getValue() as String?)!!
-                lastTenResult = lastTenResultRemote?.split(",") as MutableList<String>
-
+                if(lastTenResultRemote?.length!! > 1) {
+                    lastTenResult = lastTenResultRemote?.split(",") as MutableList<String>
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
