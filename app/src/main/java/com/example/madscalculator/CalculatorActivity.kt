@@ -61,7 +61,7 @@ class CalculatorActivity : AppCompatActivity() {
             currentHistoryIndex = 0
         }
     }
-    fun getLastAns(){
+    fun getLastAns(view: View?){
         resetHistoryIndex()
         text = textArea!!.text.toString()
         val lastAns = advanceCalculator!!.lastStoredAns.toString()

@@ -88,7 +88,7 @@ public class CalculatorUtils
         if (matcher.find())
             return false;
 
-        pattern = pattern.compile("[^\\d|+*^()\\/-]");
+        pattern = pattern.compile("[^\\d|+*.\\/-]");
         matcher = pattern.matcher(input);
         if (matcher.find())
             return false;
