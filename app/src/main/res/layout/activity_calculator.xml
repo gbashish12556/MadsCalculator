@@ -160,6 +160,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="70dp"
+            android:onClick="getLastAns"
             android:text="ANS" />
 
         <Button
@@ -178,7 +179,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="70dp"
-            android:onClick="clearTextField"
+            android:onClick="showHistory"
             android:text="HIS" />
 
 

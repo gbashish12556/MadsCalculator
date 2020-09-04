@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 public class CalculatorUtils
 {
     ArrayList<Character> operators;
+    private float lastAns = 0;
     public CalculatorUtils()
     {
         operators=new ArrayList<>();
@@ -80,13 +81,13 @@ public class CalculatorUtils
         Pattern pattern;
         Matcher matcher;
 
+        //Check if first charter is operator
         String first = String.valueOf(input.charAt(0));
         pattern = Pattern.compile("[*-+^\\/]{1}");
         matcher = pattern.matcher(first);
         if (matcher.find())
             return false;
 
-        //
         pattern = pattern.compile("[^\\d|+*^()\\/-]");
         matcher = pattern.matcher(input);
         if (matcher.find())
@@ -102,7 +103,15 @@ public class CalculatorUtils
         return true;
     }
     
-    
+
+    public Boolean validateLastCharacter(String string){
+        String last = String.valueOf(string.charAt(string.length()-1));
+        Pattern pattern = Pattern.compile("[*-+^\\/]{1}");
+        Matcher matcher = pattern.matcher(last);
+        if (matcher.find())
+            return true;
+        return false;
+    }
     String pop(ArrayList<Character> al)// pop all operators until '(' reached and add them to temp
     {
         String temp="";
@@ -161,7 +170,11 @@ public class CalculatorUtils
             }
                 
         }
-        return stack.pop();
+        lastAns = stack.pop();
+        return lastAns;
     }
 
+    public float getLastStoredAns() {
+        return lastAns;
+    }
 }

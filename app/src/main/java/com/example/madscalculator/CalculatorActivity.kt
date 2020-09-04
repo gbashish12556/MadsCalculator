@@ -12,6 +12,8 @@ class CalculatorActivity : AppCompatActivity() {
     var textArea: EditText? = null
     var text: String? = null
     var errorMessageText: TextView? = null
+    var currentHistoryIndex = 0
+    var lastTenResult:MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +28,16 @@ class CalculatorActivity : AppCompatActivity() {
     fun getTextFromButton(view: View) {
         errorMessageText!!.visibility = View.GONE
         val buttonText = (view as Button).text as String
+        resetHistoryIndex()
+        storeResult(buttonText)
         text = textArea!!.text.toString()
         text = text + buttonText
         textArea!!.setText(text)
     }
 
     fun evaluateExpression(view: View?) {
+        resetHistoryIndex()
+        storeResult("=")
         advanceCalculator = CalculatorUtils()
         text = textArea!!.text.toString()
         val postfixExpression = advanceCalculator!!.findPostfix(text)
@@ -41,37 +47,42 @@ class CalculatorActivity : AppCompatActivity() {
             return
         }
         val result = advanceCalculator!!.evaluatePostfix(postfixExpression)
-        //        TODO You can make it like 2+4=6.0*2=12.0..so that further you can take actions..however i don't want it that messy;)
+        storeResult(result.toString())
         textArea!!.setText("" + result)
     }
 
     fun clearTextField(view: View?) {
+        resetHistoryIndex()
         textArea!!.setText("")
     }
 
-    fun findSqrt(view: View?) {
-        text = textArea!!.text.toString()
-        var value = 0.0
-        try {
-            value = text!!.toDouble()
-            textArea!!.setText("" + Math.sqrt(value))
-            errorMessageText!!.visibility = View.GONE
-        } catch (e: NumberFormatException) {
-            errorMessageText!!.visibility = View.VISIBLE
-            textArea!!.setText("")
+    fun resetHistoryIndex(){
+        if(currentHistoryIndex != 0) {
+            currentHistoryIndex = 0
         }
     }
-
-    fun findLog(view: View?) {
+    fun getLastAns(){
+        resetHistoryIndex()
         text = textArea!!.text.toString()
-        var value = 0.0
-        try {
-            value = text!!.toDouble()
-            textArea!!.setText("" + Math.log10(value))
-            errorMessageText!!.visibility = View.GONE
-        } catch (e: NumberFormatException) {
-            errorMessageText!!.visibility = View.VISIBLE
-            textArea!!.setText("")
+        val lastAns = advanceCalculator!!.lastStoredAns.toString()
+        storeResult(lastAns)
+        if(advanceCalculator!!.validateLastCharacter(text)){
+           text = text+ lastAns
+        }else{
+            text = lastAns
         }
+        textArea!!.setText(text)
+    }
+
+    fun storeResult(string:String){
+        if(lastTenResult.size > 10){
+            lastTenResult.add(string)
+        }
+        lastTenResult.add(string)
+    }
+
+    fun showHistory(view: View?){
+        textArea!!.setText(lastTenResult.get(currentHistoryIndex%10))
+        currentHistoryIndex++
     }
 }
