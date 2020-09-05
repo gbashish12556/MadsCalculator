@@ -41,6 +41,12 @@ public class CalculatorActivityTest {
         onView(withId(R.id.edit_text)).perform(typeText("5+3/2-1"),closeSoftKeyboard());
         onView(withId(R.id.equal_button)).perform(click());
         onView(withId(R.id.edit_text)).check(matches(withText("3.0")));
+
+        onView(withText("CLR")).perform(click());
+
+        onView(withId(R.id.edit_text)).perform(typeText("10/2/4+1"),closeSoftKeyboard());
+        onView(withId(R.id.equal_button)).perform(click());
+        onView(withId(R.id.edit_text)).check(matches(withText("1.0")));
     }
 
     @Test
