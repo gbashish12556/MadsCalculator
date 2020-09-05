@@ -99,9 +99,7 @@ class CalculatorActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        Log.d("lastTenResult",lastTenResult.toString())
         lastTenResultRemote = lastTenResult.joinToString(",")
-        Log.d("lastTenResult",lastTenResultRemote.toString())
         App.lastTenResultNode.setValue(lastTenResultRemote)
     }
 

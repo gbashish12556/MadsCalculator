@@ -25,38 +25,42 @@ public class CalculatorUtils
     
     public String findPostfix(String inputP)//this will return the postfix expression of given input
     {
+
         if(!validateInput(inputP))
             return "Invalid expression";
         String temp="";
         ArrayList<Character> al=new ArrayList<>();
-        al.add('(');
         char ch;
-        inputP=inputP+")";
-        for(int i=0;i<inputP.length();i++)
+        inputP= '#'+inputP;
+        for(int i=inputP.length()-1;i>=0;i--)
         {
             ch=inputP.charAt(i);
-           if(ch=='(')
-               al.add('(');
-           else if(operators.contains(ch))
+
+            if(operators.contains(ch))
            {
                al.add(ch);
                temp=temp+pop(al,ch);
            }    
-           else if(ch==')')
+           else if(ch=='#')
                temp=temp+pop(al);
            else
            {
-               while(ch!='(' && ch!=')' && !operators.contains(ch))
+               int tempNumber = 0;
+               int multiplicationFactor = 1;
+               while(ch!='#' && !operators.contains(ch))
                {
-                   temp=temp+ch;
-                   i=i+1;
+                   tempNumber = tempNumber+Integer.parseInt(String.valueOf(ch))*multiplicationFactor;
+                   i=i-1;
                    ch=inputP.charAt(i);
+                   multiplicationFactor = multiplicationFactor*10;
                }
-               temp=temp+" ";
-               i=i-1;
+               temp=temp+tempNumber+" ";
+
+               i=i+1;
            }
            
         }
+
         return temp;
     }
 
@@ -65,7 +69,7 @@ public class CalculatorUtils
                                     //temp
     {
         String temp="";
-        for (int i = al.size()-1;  al.get(i)!='(' && i>=0;   i--)
+        for (int i = al.size()-1; i>=0;   i--)
         {
             if(operators.indexOf(al.get(i))<operators.indexOf(ch))
             {
@@ -100,7 +104,7 @@ public class CalculatorUtils
         pattern = pattern.compile("[*-+\\/]{2}");
         matcher = pattern.matcher(input);
         Boolean matchFound = matcher.find();
-        Log.d("matchFound",matchFound.toString());
+
         if (matchFound)
             return false;
 
@@ -123,30 +127,31 @@ public class CalculatorUtils
     String pop(ArrayList<Character> al)// pop all operators until '(' reached and add them to temp
     {
         String temp="";
-        for (int i = al.size()-1;  al.get(i)!='(' && i>=0;   i--)
+        for (int i = al.size()-1; i>=0;   i--)
         {
                 temp=temp+al.get(i);
                 al.remove(i);
         }
-        al.remove(al.size()-1);
         return temp;
     }
 
     
     public float evaluatePostfix(String inputP)//this will return the final result after evaluating postfix expression
     {
+
         Stack<Float> stack=new Stack<>();
         char ch;
         float inputA;
         float inputB;
         for (int i = 0; i < inputP.length(); i++)
         {
+
             ch=inputP.charAt(i);
             
             if(operators.contains(ch))
             {
-                inputB=stack.pop();
                 inputA=stack.pop();
+                inputB=stack.pop();
                 switch(ch)
                 {
                     case '/' :
@@ -163,8 +168,6 @@ public class CalculatorUtils
                         break;
                 }
             }
-            
-            
             else
             {
                 String temp="";
@@ -176,7 +179,7 @@ public class CalculatorUtils
                 }
                 stack.push((Float.parseFloat(temp)));
             }
-                
+
         }
         lastAns = stack.pop();
         return lastAns;
