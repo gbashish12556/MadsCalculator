@@ -41,21 +41,21 @@ class MainActivity : Activity() {
         userPassEditText = findViewById(R.id.userPassword)
         errorText  = findViewById(R.id.error_message)
 
-        var intent = Intent(this,CalculatorActivity::class.java)
-        startActivity(intent)
+//        var intent = Intent(this,CalculatorActivity::class.java)
+//        startActivity(intent)
 
-//        findViewById<Button>(R.id.loginButton).setOnClickListener{
-//
-//            var userName = userNameEditText?.text.toString()
-//            var userPassword = userPassEditText?.text.toString()
-//
-//            if(userName.equals(remoteUserName) && userPassword.equals(remotePassword)){
-//                var intent = Intent(this,CalculatorActivity::class.java)
-//                startActivity(intent)
-//            }else{
-//                errorText?.visibility = View.VISIBLE
-//            }
-//        }
+        findViewById<Button>(R.id.loginButton).setOnClickListener{
+
+            var userName = userNameEditText?.text.toString()
+            var userPassword = userPassEditText?.text.toString()
+
+            if(userName.equals(remoteUserName) && userPassword.equals(remotePassword)){
+                var intent = Intent(this,CalculatorActivity::class.java)
+                startActivity(intent)
+            }else{
+                errorText?.visibility = View.VISIBLE
+            }
+        }
     }
 
 
@@ -69,7 +69,7 @@ class MainActivity : Activity() {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.d("error", databaseError.toString())
+
             }
         })
 
@@ -79,7 +79,7 @@ class MainActivity : Activity() {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.d("error", databaseError.toString())
+
             }
         })
 

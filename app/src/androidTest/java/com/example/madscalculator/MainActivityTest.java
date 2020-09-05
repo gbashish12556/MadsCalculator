@@ -65,6 +65,7 @@ public class MainActivityTest {
 
         Intents.init();
         onView(withId(R.id.equal_button)).check(matches(isDisplayed()));
+        Intents.release();
 
     }
 
@@ -83,11 +84,6 @@ public class MainActivityTest {
 
         onView(withId(R.id.error_message)).check(matches(isDisplayed()));
 
-    }
-
-    @After
-    public void tearDown(){
-        Intents.release();
     }
 
 }
